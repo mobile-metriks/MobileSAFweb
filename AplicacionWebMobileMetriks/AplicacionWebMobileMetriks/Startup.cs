@@ -68,9 +68,10 @@ namespace AplicacionWebMobileMetriks
 
             app.UseMvc(routes =>
             {
+                //Modifique la ruta para que se fuera al index de mi carpeta de Usuario dentro de mi carpeta de areas de manera default
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    name: "areas",
+                    template: "{area=Usuario}/{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

@@ -8,6 +8,7 @@ using AplicacionWebMobileMetriks.Models;
 
 namespace AplicacionWebMobileMetriks.Controllers
 {
+    [Area("Usuario")]
     public class HomeController : Controller
     {
         public IActionResult Index()
