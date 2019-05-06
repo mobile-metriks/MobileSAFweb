@@ -54,6 +54,12 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            //Aqui agrego mas propiedades a mi modelo de registrarse
+            [Required]
+            public string Empresa { get; set; }
+            [Required]
+            public string Nombre { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
