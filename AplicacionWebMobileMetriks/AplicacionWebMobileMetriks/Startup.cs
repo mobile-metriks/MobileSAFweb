@@ -38,7 +38,10 @@ namespace AplicacionWebMobileMetriks
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
+            //El DefaultIdentity no incluye los roles entonces le borro el Default y ademas le agrego IdentityRole
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                //Ademas le agrego los TokenProviders
+                .AddDefaultTokenProviders()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
