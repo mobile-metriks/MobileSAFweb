@@ -1,0 +1,57 @@
+﻿@*Pongo mi modelo de donde sacare las propiedades a utilizar*@
+@model IEnumerable<UsuarioDeLaAplicacion>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <br />
+    <br />
+    <div class="border">
+        @*Area del boton de agregar nuevo empleado*@
+        <div class="row">
+            <div class="col-6">
+                <h2 class="text-info"> Lista de Usuarios</h2>
+            </div>
+            <div class="col-6 text-right">
+                <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-info"><i class="fas fa-plis">Crear nuevo usuario</i></a>
+            </div>
+        </div>
+        <br />
+        <div>
+            @if (Model.Count()>0)
+            {
+                <table class="table table-striped border" >
+                    <tr class="table-secondary">
+                        <th>
+                         @Html.DisplayNameFor(m => m.Nombre);
+                        </th>
+                        <th>
+                         @Html.DisplayNameFor(m => m.Email);
+                        </th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => item.Nombre);
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => item.Email);
+                    </td>
+                    @*Aqui agregare la funcionalidad de bloquear un usuario*@
+                    <td>
+                     
+                    </td>
+                </tr>
+                    }
+                    
+                </table>
+            }
+            else
+            {
+<p>Aun no existen usuarios</p>
+            }
+        </div>
+    </div>
+

@@ -1,4 +1,5 @@
 ﻿@page
+@using AplicacionWebMobileMetriks.Utilidad
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
@@ -64,6 +65,19 @@
                 </div>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+            @*Area de los radio buttons para asignar roles*@
+            @*Primero pongo una condicional para que solo se muestre a el rol de administrador*@
+            @if (User.IsInRole(SD.UsuarioAdministrador))
+            {
+                <div class="form-group row">
+                    <div class="col-2">
+                    </div>
+                    <div class="col-5">
+                        <input type="radio" name="rdRolUsuario" value="@SD.UsuarioRegular" checked />@SD.UsuarioRegular
+                        <input type="radio" name="rdRolUsuario" value="@SD.UsuarioAdministrador"/>@SD.UsuarioAdministrador
+                    </div>
+                </div>
+            }
             @*Area del boton de registro en formulario*@
             <div class="form-group row">
                 <div class="col-5 offset-2">
