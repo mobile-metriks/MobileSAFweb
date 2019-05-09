@@ -12,6 +12,6 @@ namespace AplicacionWebMobileMetriks.Utilidad
         //Agrego los strings que seran los roles a agregar en mi modelo Register de identity
         public const string UsuarioAdministrador = "Administrador";
         public const string UsuarioRegular = "Usuario";
-
+        public const string ClienteInicial = "Cliente";
     }
 }

@@ -14,7 +14,7 @@
                 <h2 class="text-info"> Lista de Usuarios</h2>
             </div>
             <div class="col-6 text-right">
-                <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-info"><i class="fas fa-plis">Crear nuevo usuario</i></a>
+                <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-info"><i class="fa fa-plus">Crear nuevo usuario</i></a>
             </div>
         </div>
         <br />
@@ -24,25 +24,36 @@
                 <table class="table table-striped border" >
                     <tr class="table-secondary">
                         <th>
-                         @Html.DisplayNameFor(m => m.Nombre);
+                         @Html.DisplayNameFor(m => m.Nombre)
                         </th>
                         <th>
-                         @Html.DisplayNameFor(m => m.Email);
+                         @Html.DisplayNameFor(m => m.Email)
+                        </th>
+                        <th>
+
                         </th>
                     </tr>
                     @foreach (var item in Model)
                     {
                 <tr>
                     <td>
-                        @Html.DisplayFor(m => item.Nombre);
+                        @Html.DisplayFor(m => item.Nombre)
                     </td>
                     <td>
-                        @Html.DisplayFor(m => item.Email);
+                        @Html.DisplayFor(m => item.Email)
                     </td>
                     @*Aqui agregare la funcionalidad de bloquear un usuario*@
-                    <td>
-                     
-                    </td>
+                <td>
+                    @*Agrego una condicion para que solo muestre un candadito a la vez*@
+                    @if (item.LockoutEnd == null || item.LockoutEnd < DateTime.Now)
+                    {
+                        <a class="btn btn-success text-white" asp-action="Bloquear" asp-route-id="@item.Id"><i class="fa fa-lock-open"></i></a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-danger text-white" asp-action="Desbloquear" asp-route-id="@item.Id"><i class="fa fa-lock"></i></a>
+                    }
+                </td>
                 </tr>
                     }
                     

@@ -76,6 +76,9 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            //Para empezar a asignar los roles primero los busco y los asigno a una variable
+            string rol = Request.Form["rdRolUsuario"].ToString();
+
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
@@ -90,6 +93,7 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     //Aqui es donde se agregan los roles
+
                     //Primero checo si existe el rol a crear
                     if (!await _rolAdministrador.RoleExistsAsync(SD.UsuarioAdministrador))
                     {
@@ -102,12 +106,40 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
                         //Si no existe creo el rol
                         await _rolAdministrador.CreateAsync(new IdentityRole(SD.UsuarioRegular));
                     }
+                    //Primero checo si existe el rol a crear
+                    if (!await _rolAdministrador.RoleExistsAsync(SD.ClienteInicial))
+                    {
+                        //Si no existe creo el rol
+                        await _rolAdministrador.CreateAsync(new IdentityRole(SD.ClienteInicial));
+                    }
+
+                    //Revisamos el valor de la variable string "rol"
+                    if (rol==SD.UsuarioAdministrador)
+                    {
+                        await _userManager.AddToRoleAsync(user, SD.UsuarioAdministrador);
+                    }
+                    else
+                    {
+                        if (rol==SD.UsuarioRegular)
+                        {
+                            await _userManager.AddToRoleAsync(user, SD.UsuarioRegular);
+                        }
+                        //Aqui es donde se aplica que por default al iniciar sesion sea un cliente inicial por que rol no tiene ningun valor.
+                        else
+                        {
+                            await _userManager.AddToRoleAsync(user, SD.ClienteInicial);
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+                            return LocalRedirect(returnUrl);
+                        }
+                    }
+                    return RedirectToAction("Index", "Usuario", new { area = "Admin" });
 
                     //Despues ya asigno los roles especificos
                     //Aqui asigno a administrador
-                    await _userManager.AddToRoleAsync(user, SD.UsuarioAdministrador);
+                    
 
                     _logger.LogInformation("User created a new account with password.");
+
                     //--Comento este codigo para que no me genere error por que aun no le agrego esa caracteristica.--
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     //var callbackUrl = Url.Page(
@@ -119,8 +151,8 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
                     //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                     //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+                    
+                    
                 }
                 foreach (var error in result.Errors)
                 {
