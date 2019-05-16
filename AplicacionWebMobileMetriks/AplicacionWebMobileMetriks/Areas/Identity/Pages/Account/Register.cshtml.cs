@@ -106,33 +106,22 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
                         //Si no existe creo el rol
                         await _rolAdministrador.CreateAsync(new IdentityRole(SD.UsuarioRegular));
                     }
-                    //Primero checo si existe el rol a crear
-                    if (!await _rolAdministrador.RoleExistsAsync(SD.ClienteInicial))
-                    {
-                        //Si no existe creo el rol
-                        await _rolAdministrador.CreateAsync(new IdentityRole(SD.ClienteInicial));
-                    }
+
 
                     //Revisamos el valor de la variable string "rol"
-                    if (rol==SD.UsuarioAdministrador)
+                    if (rol==SD.UsuarioRegular)
                     {
-                        await _userManager.AddToRoleAsync(user, SD.UsuarioAdministrador);
+                        await _userManager.AddToRoleAsync(user, SD.UsuarioRegular);
                     }
                     else
-                    {
-                        if (rol==SD.UsuarioRegular)
-                        {
-                            await _userManager.AddToRoleAsync(user, SD.UsuarioRegular);
-                        }
+                    {           
                         //Aqui es donde se aplica que por default al iniciar sesion sea un cliente inicial por que rol no tiene ningun valor.
-                        else
-                        {
-                            await _userManager.AddToRoleAsync(user, SD.ClienteInicial);
+                            await _userManager.AddToRoleAsync(user, SD.UsuarioAdministrador);
                             await _signInManager.SignInAsync(user, isPersistent: false);
-                            return LocalRedirect(returnUrl);
-                        }
+                            return RedirectToAction("Index", "Usuario", new { area = "Admin" });
                     }
-                    return RedirectToAction("Index", "Usuario", new { area = "Admin" });
+                    return LocalRedirect(returnUrl);
+                    
 
                     //Despues ya asigno los roles especificos
                     //Aqui asigno a administrador
