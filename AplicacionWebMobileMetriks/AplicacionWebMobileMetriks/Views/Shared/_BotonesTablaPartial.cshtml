@@ -1,0 +1,11 @@
+﻿@*Le pongo que se basara del Guid del objeto*@
+@model Guid
+
+<td style="width:150px">
+    <div class="btn-group" role="group">
+        <a asp-action="Editar" asp-route-Id="@Model" class="btn btn-primary text-white"><i class="fas fa-edit"></i></a>
+        <a asp-action="Detalles" asp-route-Id="@Model" class="btn btn-success text-white"><i class="fas fa-clipboard-list"></i></a>
+        <a asp-action="Borrar" asp-route-Id="@Model" class="btn btn-danger text-white"><i class="fas fa-trash"></i></a>
+    </div>
+
+</td>

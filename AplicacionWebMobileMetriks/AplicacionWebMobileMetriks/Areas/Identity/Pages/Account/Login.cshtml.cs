@@ -78,7 +78,7 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    return RedirectToAction("Index", "Empresa", new { area = "Admin" });
                 }
                 if (result.RequiresTwoFactor)
                 {
