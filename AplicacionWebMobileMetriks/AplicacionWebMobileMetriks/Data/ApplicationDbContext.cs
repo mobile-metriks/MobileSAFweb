@@ -17,5 +17,6 @@ namespace AplicacionWebMobileMetriks.Data
 
         //En esta propiedad los agregara a mi tabla AspNetUser puesto que el proposito de ese modelo es ser un anexo a esa tabla en la BD
         public DbSet<UsuarioDeLaAplicacion> UsuarioDeLaAplicacion { get; set; }
+        public DbSet<Empresa> Empresas { get; set; }
     }
 }
