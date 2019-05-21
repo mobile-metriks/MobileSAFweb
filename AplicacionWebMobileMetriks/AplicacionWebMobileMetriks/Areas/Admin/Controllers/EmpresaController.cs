@@ -19,7 +19,7 @@ namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
             this._db = db;
         }
         //GET
-        public async Task <IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             return View(await _db.Empresas.ToListAsync());
         }
@@ -43,6 +43,23 @@ namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             //Si no es valido lo regreso a la misma vista
+            return View(empresa);
+        } 
+        //GET- Editar
+        //Tomare el id del elemento seleccionado
+        public async Task<IActionResult> Editar(Guid? id)
+        {
+            if (id==null)
+            {
+                return NotFound();
+            }
+            //Con el id seleccionado ahora la busco en la BD
+            var empresa = await _db.Empresas.FindAsync(id);
+            if (empresa==null)
+            {
+                return NotFound();
+            }
+            //Ya que lo encuentra regreso una vista de la empresa seleccionada
             return View(empresa);
         }
     }
