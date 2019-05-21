@@ -10,6 +10,7 @@ namespace AplicacionWebMobileMetriks.Models
     {
         [Key]
         public Guid Id { get; set; }
+        [Display(Name ="Nombre de empresa")]
         [Required]
         public string Nombre { get; set; }
         [Required]
