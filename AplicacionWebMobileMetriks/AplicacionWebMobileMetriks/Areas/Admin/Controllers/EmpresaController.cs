@@ -107,6 +107,20 @@ namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        //Get-Detalles
+        public async Task<IActionResult> Detalles(Guid id)
+        {
+            if (id==null)
+            {
+                return NotFound();
+            }
+            var empresa = await _db.Empresas.FindAsync(id);
+            if (empresa==null)
+            {
+                return NotFound();
+            }
+            return View(empresa);
+        }
 
 
     }
