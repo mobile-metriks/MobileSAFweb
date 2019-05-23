@@ -34,6 +34,8 @@ namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
             //Ya que obtuve mi usuario actual ahora lo comparo que el Id de usuario no debe ser igual
             //a el Id usuario actual que guarde en mi variable "pedir" y lo muestro en forma de lista
             return View(await _db.UsuarioDeLaAplicacion.Where(u=>u.Id != pedir.Value).ToListAsync());
+            
+            //return View(await _db.UsuarioDeLaAplicacion.Where(u => u.Id != pedir.Value).Where(x => x.UsuarioId == pedir.Value).ToListAsync());
         }
         //Metodo (accion) para bloquear a un usuario siendo administrador
         public async Task <IActionResult> Bloquear(string id)

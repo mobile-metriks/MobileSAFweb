@@ -67,6 +67,8 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
             public string Empresa { get; set; }
             [Required]
             public string Nombre { get; set; }
+
+            
         }
 
         public void OnGet(string returnUrl = null)
@@ -82,12 +84,24 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
+
                 //Cambio de donde obtendra los datos la variable "user" en lugar de usar el modelo  base de "IdentityUser" utilizo mi modelo que cree "UsuarioDeLaAplicacion" que en si hereda de IdentityUser :v
-                var user = new UsuarioDeLaAplicacion {
+                //if (User.IsInRole(SD.UsuarioAdministrador))
+                //{
+                //    var userRegular = new UsuarioDeLaAplicacion
+                //    {
+                //        UserName = Input.Email,
+                //        Email = Input.Email,
+                //        Nombre = Input.Nombre,
+                //        Empresa = Input.Empresa,
+                //    };
+                //} 
+                var user = new UsuarioDeLaAplicacion
+                {
                     UserName = Input.Email,
                     Email = Input.Email,
                     Nombre = Input.Nombre,
-                    Empresa = Input.Empresa       
+                    Empresa = Input.Empresa,
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
@@ -112,6 +126,7 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
                     if (rol==SD.UsuarioRegular)
                     {
                         await _userManager.AddToRoleAsync(user, SD.UsuarioRegular);
+                        
                     }
                     else
                     {           

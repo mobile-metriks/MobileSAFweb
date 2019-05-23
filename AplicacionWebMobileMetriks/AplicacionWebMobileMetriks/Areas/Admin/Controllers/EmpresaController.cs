@@ -5,12 +5,17 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AplicacionWebMobileMetriks.Data;
 using AplicacionWebMobileMetriks.Models;
+using AplicacionWebMobileMetriks.Utilidad;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
 {
+    //Defino que roles tendran autorizacion a esta area
+    [Authorize]
     [Area("Admin")]
+
     public class EmpresaController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -25,20 +30,15 @@ namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             //var empresaId = this._db.Empresas.FindAsync(empresa.UsuarioId);
 
-            //if (id==null)
-            //{
-            //    return NotFound();
-            //}
-            
-
-            //if (userId == empresaId.ToString())
-            //{
-                return View(await _db.Empresas.Where(x=>x.UsuarioId==userId).ToListAsync());
-            //}
-            //return RedirectToAction(nameof(Crear));
-
-
+            if (User.IsInRole(SD.UsuarioAdministrador))
+            {
+                //Hago que regrese la lista de empresas donde el UsuarioId sea igual al Id del usuario actual
+                return View(await _db.Empresas.Where(x => x.UsuarioId == userId).ToListAsync());
+            }
+            return View(await _db.Empresas.ToListAsync());
+               
         }
+        [Authorize(Roles =SD.UsuarioAdministrador)]
         //GET - Crear
         public IActionResult Crear()
         {
