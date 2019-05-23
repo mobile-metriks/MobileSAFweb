@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AplicacionWebMobileMetriks.Data;
 using AplicacionWebMobileMetriks.Models;
@@ -19,9 +20,22 @@ namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
             this._db = db;
         }
         //GET-Index
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(/*Guid? id*/)
         {
-            return View(await _db.Empresas.ToListAsync());
+            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //if (id==null)
+            //{
+            //    return NotFound();
+            //}
+            //var empresaId = await _db.Empresas.FindAsync(id);
+
+            //if (userId==empresaId.ToString())
+            //{
+                return View(await _db.Empresas.ToListAsync());
+            //}
+            //return RedirectToAction(nameof(Crear));
+                
+   
         }
         //GET - Crear
         public IActionResult Crear()
@@ -35,6 +49,9 @@ namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Crear(Empresa empresa)
         {
+            //Aqui asigne que al crear lo primero que haga sea asignar el valor del id de usuarios al id de UsuariosId de empresas
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            empresa.UsuarioId = userId;
             //Checo si mi modelo es valido-correcto
             if (ModelState.IsValid)
             {
@@ -44,7 +61,9 @@ namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
             }
             //Si no es valido lo regreso a la misma vista
             return View(empresa);
-        } 
+        }
+        //Metodo para obtener e
+
         //GET- Editar
         //Tomare el id del elemento seleccionado
         public async Task<IActionResult> Editar(Guid? id)

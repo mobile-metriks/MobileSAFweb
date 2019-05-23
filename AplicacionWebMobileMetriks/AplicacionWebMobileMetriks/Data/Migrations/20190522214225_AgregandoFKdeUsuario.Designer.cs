@@ -4,14 +4,16 @@ using AplicacionWebMobileMetriks.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AplicacionWebMobileMetriks.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190522214225_AgregandoFKdeUsuario")]
+    partial class AgregandoFKdeUsuario
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +32,8 @@ namespace AplicacionWebMobileMetriks.Data.Migrations
                     b.Property<string>("RFC")
                         .IsRequired();
 
-                    b.Property<string>("UsuarioId");
+                    b.Property<string>("UsuarioId")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -220,7 +223,8 @@ namespace AplicacionWebMobileMetriks.Data.Migrations
                 {
                     b.HasOne("AplicacionWebMobileMetriks.Models.UsuarioDeLaAplicacion", "Usuario")
                         .WithMany()
-                        .HasForeignKey("UsuarioId");
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

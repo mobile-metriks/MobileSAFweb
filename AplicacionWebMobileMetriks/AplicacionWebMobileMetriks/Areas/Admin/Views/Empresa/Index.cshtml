@@ -21,16 +21,19 @@
                   <tr class="table-secondary">
                       <th>@Html.DisplayNameFor(m => m.Nombre)</th>
                       <th>@Html.DisplayNameFor(m => m.RFC)</th>
+                      
+
                       <th></th>
                   </tr>
                   @foreach (var item in Model)
                   {
-                      <tr>
-                          <td>@Html.DisplayFor(m => item.Nombre)</td>
-                          <td>@Html.DisplayFor(m => item.RFC)</td>
-                          <partial name="_BotonesTablaPartial" model="item.Id" />
-                         
-                      </tr>
+              <tr>
+                  <td>@Html.DisplayFor(m => item.Nombre)</td>
+                  <td>@Html.DisplayFor(m => item.RFC)</td>
+                  
+                  <partial name="_BotonesTablaPartial" model="item.Id" />
+
+              </tr>
                   }
               </table>
           }
