@@ -20,22 +20,24 @@ namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
             this._db = db;
         }
         //GET-Index
-        public async Task<IActionResult> Index(/*Guid? id*/)
+        public async Task<IActionResult> Index()
         {
-            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //var empresaId = this._db.Empresas.FindAsync(empresa.UsuarioId);
+
             //if (id==null)
             //{
             //    return NotFound();
             //}
-            //var empresaId = await _db.Empresas.FindAsync(id);
+            
 
-            //if (userId==empresaId.ToString())
+            //if (userId == empresaId.ToString())
             //{
-                return View(await _db.Empresas.ToListAsync());
+                return View(await _db.Empresas.Where(x=>x.UsuarioId==userId).ToListAsync());
             //}
             //return RedirectToAction(nameof(Crear));
-                
-   
+
+
         }
         //GET - Crear
         public IActionResult Crear()
