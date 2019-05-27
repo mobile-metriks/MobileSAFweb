@@ -4,16 +4,14 @@ using AplicacionWebMobileMetriks.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace AplicacionWebMobileMetriks.Data.Migrations
+namespace AplicacionWebMobileMetriks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190520122821_agregoEmpresaDb")]
-    partial class agregoEmpresaDb
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,7 +30,11 @@ namespace AplicacionWebMobileMetriks.Data.Migrations
                     b.Property<string>("RFC")
                         .IsRequired();
 
+                    b.Property<string>("UsuarioId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Empresas");
                 });
@@ -209,9 +211,18 @@ namespace AplicacionWebMobileMetriks.Data.Migrations
 
                     b.Property<string>("Empresa");
 
+                    b.Property<string>("IdAdministrador");
+
                     b.Property<string>("Nombre");
 
                     b.HasDiscriminator().HasValue("UsuarioDeLaAplicacion");
+                });
+
+            modelBuilder.Entity("AplicacionWebMobileMetriks.Models.Empresa", b =>
+                {
+                    b.HasOne("AplicacionWebMobileMetriks.Models.UsuarioDeLaAplicacion", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

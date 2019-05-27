@@ -27,7 +27,13 @@ namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
         //GET-Index
         public async Task<IActionResult> Index()
         {
+            
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //var query = from Empresa in _db.Empresas
+            //            join UsuarioDeLaAplicacion in _db.UsuarioDeLaAplicacion on Empresa.UsuarioId equals UsuarioDeLaAplicacion.Id
+            //            where UsuarioDeLaAplicacion.IdAdministrador == Empresa.UsuarioId
+            //            select new {Empresas = Empresa, }
+
             if (User.IsInRole(SD.UsuarioAdministrador))
             {
                 //Hago que regrese la lista de empresas donde el UsuarioId sea igual al Id del usuario actual

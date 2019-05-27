@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace AplicacionWebMobileMetriks.Data.Migrations
+namespace AplicacionWebMobileMetriks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190524225037_AgregandoUsuarioRegularId")]
-    partial class AgregandoUsuarioRegularId
+    [Migration("20190527220036_primerasRelaciones")]
+    partial class primerasRelaciones
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -213,7 +213,7 @@ namespace AplicacionWebMobileMetriks.Data.Migrations
 
                     b.Property<string>("Empresa");
 
-                    b.Property<string>("IdUsuarioRegular");
+                    b.Property<string>("IdAdministrador");
 
                     b.Property<string>("Nombre");
 
