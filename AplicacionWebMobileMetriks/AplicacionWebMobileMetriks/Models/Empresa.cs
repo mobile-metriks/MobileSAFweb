@@ -16,11 +16,12 @@ namespace AplicacionWebMobileMetriks.Models
         public string Nombre { get; set; }
         [Required]
         public string RFC { get; set; }
+        
 
         //Agrego la llave foranea a mi tabla usuarios
-       
+
         //Utilizo string para que sea el mismo tipo de variable que identity
-       
+
         public string UsuarioId { get; set; }
 
         [ForeignKey("UsuarioId")]

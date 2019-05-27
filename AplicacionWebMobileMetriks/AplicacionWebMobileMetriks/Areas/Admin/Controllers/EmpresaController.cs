@@ -28,8 +28,6 @@ namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //var empresaId = this._db.Empresas.FindAsync(empresa.UsuarioId);
-
             if (User.IsInRole(SD.UsuarioAdministrador))
             {
                 //Hago que regrese la lista de empresas donde el UsuarioId sea igual al Id del usuario actual
@@ -89,6 +87,9 @@ namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Editar( Empresa empresa)
         {
+            //Aqui asigne que al crear lo primero que haga sea asignar el valor del id de usuarios al id de UsuariosId de empresas
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            empresa.UsuarioId = userId;
             if (ModelState.IsValid)
             {
                 _db.Empresas.Update(empresa);
