@@ -14,5 +14,7 @@ namespace AplicacionWebMobileMetriks.Models
         public string Empresa { get; set; }
         public string Nombre { get; set; }
         public string IdAdministrador { get; set; }
+        public virtual ICollection<UsuariosEmpresas> UsuariosEmpresas { get; set; } 
+
     }
 }

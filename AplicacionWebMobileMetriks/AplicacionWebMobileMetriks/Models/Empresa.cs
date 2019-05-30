@@ -27,5 +27,7 @@ namespace AplicacionWebMobileMetriks.Models
         [ForeignKey("UsuarioId")]
         public virtual UsuarioDeLaAplicacion Usuario { get; set; }
 
+        public virtual ICollection<UsuariosEmpresas> UsuariosEmpresas { get; set; } 
+
     }
 }

@@ -25,22 +25,25 @@ namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
             this._db = db;
         }
         //GET-Index
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(UsuarioDeLaAplicacion usuario)
         {
-            
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //var query = from Empresa in _db.Empresas
-            //            join UsuarioDeLaAplicacion in _db.UsuarioDeLaAplicacion on Empresa.UsuarioId equals UsuarioDeLaAplicacion.Id
-            //            where UsuarioDeLaAplicacion.IdAdministrador == Empresa.UsuarioId
-            //            select new {Empresas = Empresa, }
-
+            
             if (User.IsInRole(SD.UsuarioAdministrador))
             {
                 //Hago que regrese la lista de empresas donde el UsuarioId sea igual al Id del usuario actual
                 return View(await _db.Empresas.Where(x => x.UsuarioId == userId).ToListAsync());
             }
-            return View(await _db.Empresas.ToListAsync());
-               
+            //var usuarioEmpresa = await _db.usuariosEmpresas.Include(m=>m.empresa).Include(m=>m.usuario).ToListAsync();
+            //var Idadmin = from user in _db.UsuarioDeLaAplicacion
+            //              join empre in _db.Empresas
+            //              on user.IdAdministrador equals empre.UsuarioId
+            //              where user.IdAdministrador == empre.UsuarioId && user.IdAdministrador != null
+            //              select user.IdAdministrador;
+            var Idadmin = await _db.UsuarioDeLaAplicacion.Where(x => x.IdAdministrador != null).Where(x=>x.Id==userId).Select(x => x.IdAdministrador).FirstOrDefaultAsync();
+            return View(await _db.Empresas.Where(x => x.UsuarioId == Idadmin).ToListAsync());
+
+
         }
         [Authorize(Roles =SD.UsuarioAdministrador)]
         //GET - Crear
@@ -53,22 +56,30 @@ namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
         [HttpPost]
         //Declaro para cuestiones de seguridad
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Crear(Empresa empresa)
+        public async Task<IActionResult> Crear(Empresa empresa/*, UsuariosEmpresas usemp*/)
         {
             //Aqui asigne que al crear lo primero que haga sea asignar el valor del id de usuarios al id de UsuariosId de empresas
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);           
             empresa.UsuarioId = userId;
+            
+
             //Checo si mi modelo es valido-correcto
             if (ModelState.IsValid)
             {
-                _db.Empresas.Add(empresa);
+                _db.Empresas.Add(empresa);     
                 await _db.SaveChangesAsync();
+
+                //usemp.usuarioId = userId;
+                //usemp.empresaId = empresa.Id;
+                //_db.usuariosEmpresas.Add(usemp);
+                //await _db.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             //Si no es valido lo regreso a la misma vista
-            return View(empresa);
+            return View(empresa);      
         }
-        //Metodo para obtener e
+        
 
         //GET- Editar
         //Tomare el id del elemento seleccionado

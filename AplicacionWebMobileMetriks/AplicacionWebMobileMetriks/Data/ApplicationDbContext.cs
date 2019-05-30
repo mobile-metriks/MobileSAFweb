@@ -18,5 +18,19 @@ namespace AplicacionWebMobileMetriks.Data
         //En esta propiedad los agregara a mi tabla AspNetUser puesto que el proposito de ese modelo es ser un anexo a esa tabla en la BD
         public DbSet<UsuarioDeLaAplicacion> UsuarioDeLaAplicacion { get; set; }
         public DbSet<Empresa> Empresas { get; set; }
+        public DbSet<UsuariosEmpresas> usuariosEmpresas { get; set; }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<UsuariosEmpresas>()
+                .HasKey(e => new { e.usuarioId, e.empresaId });
+            builder.Entity<UsuariosEmpresas>()
+                .HasOne(e => e.usuario).WithMany(e => e.UsuariosEmpresas).HasForeignKey(e => e.usuarioId)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<UsuariosEmpresas>()
+              .HasOne(e => e.empresa).WithMany(e => e.UsuariosEmpresas).HasForeignKey(e => e.empresaId)
+              .OnDelete(DeleteBehavior.Restrict);
+            
+        }
     }
 }
