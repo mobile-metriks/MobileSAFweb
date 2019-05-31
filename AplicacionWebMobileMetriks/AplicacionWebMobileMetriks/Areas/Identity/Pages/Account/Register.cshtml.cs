@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using AplicacionWebMobileMetriks.Models;
@@ -67,6 +68,8 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
             public string Empresa { get; set; }
             [Required]
             public string Nombre { get; set; }
+
+            
         }
 
         public void OnGet(string returnUrl = null)
@@ -82,12 +85,41 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
+                
                 //Cambio de donde obtendra los datos la variable "user" en lugar de usar el modelo  base de "IdentityUser" utilizo mi modelo que cree "UsuarioDeLaAplicacion" que en si hereda de IdentityUser :v
-                var user = new UsuarioDeLaAplicacion {
+                if (User.IsInRole(SD.UsuarioAdministrador))
+                {
+                    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var userRegular = new UsuarioDeLaAplicacion
+                    {
+                        UserName = Input.Email,
+                        Email = Input.Email,
+                        Nombre = Input.Nombre,
+                        Empresa = Input.Empresa,
+                        IdAdministrador = userId,
+
+                    };
+                    var resultRegular = await _userManager.CreateAsync(userRegular, Input.Password);
+                    if (resultRegular.Succeeded)
+                    {
+                       
+                        //Revisamos el valor de la variable string "rol"
+                        if (rol == SD.UsuarioRegular)
+                        {
+                            await _userManager.AddToRoleAsync(userRegular, SD.UsuarioRegular);
+
+                        }
+                        return LocalRedirect(returnUrl);
+                    }
+
+                }
+             
+                var user = new UsuarioDeLaAplicacion
+                {
                     UserName = Input.Email,
                     Email = Input.Email,
                     Nombre = Input.Nombre,
-                    Empresa = Input.Empresa       
+                    Empresa = Input.Empresa,
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
@@ -106,33 +138,13 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
                         //Si no existe creo el rol
                         await _rolAdministrador.CreateAsync(new IdentityRole(SD.UsuarioRegular));
                     }
-                    //Primero checo si existe el rol a crear
-                    if (!await _rolAdministrador.RoleExistsAsync(SD.ClienteInicial))
-                    {
-                        //Si no existe creo el rol
-                        await _rolAdministrador.CreateAsync(new IdentityRole(SD.ClienteInicial));
-                    }
-
-                    //Revisamos el valor de la variable string "rol"
-                    if (rol==SD.UsuarioAdministrador)
-                    {
-                        await _userManager.AddToRoleAsync(user, SD.UsuarioAdministrador);
-                    }
-                    else
-                    {
-                        if (rol==SD.UsuarioRegular)
-                        {
-                            await _userManager.AddToRoleAsync(user, SD.UsuarioRegular);
-                        }
-                        //Aqui es donde se aplica que por default al iniciar sesion sea un cliente inicial por que rol no tiene ningun valor.
-                        else
-                        {
-                            await _userManager.AddToRoleAsync(user, SD.ClienteInicial);
+                    //Aqui es donde se aplica que por default al iniciar sesion sea un cliente inicial por que rol no tiene ningun valor.
+                    await _userManager.AddToRoleAsync(user, SD.UsuarioAdministrador);
                             await _signInManager.SignInAsync(user, isPersistent: false);
-                            return LocalRedirect(returnUrl);
-                        }
-                    }
-                    return RedirectToAction("Index", "Usuario", new { area = "Admin" });
+                            return RedirectToAction("Index", "Usuario", new { area = "Admin" });
+                    
+                    
+                    
 
                     //Despues ya asigno los roles especificos
                     //Aqui asigno a administrador

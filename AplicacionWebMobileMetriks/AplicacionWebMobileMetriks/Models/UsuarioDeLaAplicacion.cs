@@ -13,5 +13,7 @@ namespace AplicacionWebMobileMetriks.Models
         //Agrego las propiedades que quiero anexar a la tabla IdentityUser
         public string Empresa { get; set; }
         public string Nombre { get; set; }
+        public string IdAdministrador { get; set; }
+        public IList<Empresa> empresas { get; set; }
     }
 }
