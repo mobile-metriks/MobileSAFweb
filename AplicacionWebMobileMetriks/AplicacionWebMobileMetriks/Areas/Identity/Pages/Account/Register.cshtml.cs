@@ -85,7 +85,6 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                
                 //Cambio de donde obtendra los datos la variable "user" en lugar de usar el modelo  base de "IdentityUser" utilizo mi modelo que cree "UsuarioDeLaAplicacion" que en si hereda de IdentityUser :v
                 if (User.IsInRole(SD.UsuarioAdministrador))
                 {
@@ -101,8 +100,7 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
                     };
                     var resultRegular = await _userManager.CreateAsync(userRegular, Input.Password);
                     if (resultRegular.Succeeded)
-                    {
-                       
+                    {                      
                         //Revisamos el valor de la variable string "rol"
                         if (rol == SD.UsuarioRegular)
                         {
@@ -113,7 +111,6 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
                     }
 
                 }
-             
                 var user = new UsuarioDeLaAplicacion
                 {
                     UserName = Input.Email,
@@ -142,13 +139,10 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
                     await _userManager.AddToRoleAsync(user, SD.UsuarioAdministrador);
                             await _signInManager.SignInAsync(user, isPersistent: false);
                             return RedirectToAction("Index", "Usuario", new { area = "Admin" });
-                    
-                    
-                    
 
                     //Despues ya asigno los roles especificos
                     //Aqui asigno a administrador
-                    
+
 
                     _logger.LogInformation("User created a new account with password.");
 

@@ -4,14 +4,16 @@ using AplicacionWebMobileMetriks.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AplicacionWebMobileMetriks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190528215336_MtoMusuariosEmpresas")]
+    partial class MtoMusuariosEmpresas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,6 +39,19 @@ namespace AplicacionWebMobileMetriks.Migrations
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("Empresas");
+                });
+
+            modelBuilder.Entity("AplicacionWebMobileMetriks.Models.UsuariosEmpresas", b =>
+                {
+                    b.Property<string>("usuarioId");
+
+                    b.Property<Guid>("empresaId");
+
+                    b.HasKey("usuarioId", "empresaId");
+
+                    b.HasIndex("empresaId");
+
+                    b.ToTable("UsuariosEmpresas");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -221,8 +236,21 @@ namespace AplicacionWebMobileMetriks.Migrations
             modelBuilder.Entity("AplicacionWebMobileMetriks.Models.Empresa", b =>
                 {
                     b.HasOne("AplicacionWebMobileMetriks.Models.UsuarioDeLaAplicacion", "Usuario")
-                        .WithMany("empresas")
+                        .WithMany()
                         .HasForeignKey("UsuarioId");
+                });
+
+            modelBuilder.Entity("AplicacionWebMobileMetriks.Models.UsuariosEmpresas", b =>
+                {
+                    b.HasOne("AplicacionWebMobileMetriks.Models.Empresa", "empresa")
+                        .WithMany("UsuariosEmpresas")
+                        .HasForeignKey("empresaId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("AplicacionWebMobileMetriks.Models.UsuarioDeLaAplicacion", "usuario")
+                        .WithMany("UsuariosEmpresas")
+                        .HasForeignKey("usuarioId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace AplicacionWebMobileMetriks.Data.Migrations
+namespace AplicacionWebMobileMetriks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190506231921_AgregandoMasCamposEnIdentityUser")]
-    partial class AgregandoMasCamposEnIdentityUser
+    [Migration("20190527220036_primerasRelaciones")]
+    partial class primerasRelaciones
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,26 @@ namespace AplicacionWebMobileMetriks.Data.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("AplicacionWebMobileMetriks.Models.Empresa", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Nombre")
+                        .IsRequired();
+
+                    b.Property<string>("RFC")
+                        .IsRequired();
+
+                    b.Property<string>("UsuarioId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Empresas");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -143,11 +163,9 @@ namespace AplicacionWebMobileMetriks.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128);
+                    b.Property<string>("ProviderKey");
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -178,11 +196,9 @@ namespace AplicacionWebMobileMetriks.Data.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(128);
+                    b.Property<string>("Name");
 
                     b.Property<string>("Value");
 
@@ -197,9 +213,18 @@ namespace AplicacionWebMobileMetriks.Data.Migrations
 
                     b.Property<string>("Empresa");
 
+                    b.Property<string>("IdAdministrador");
+
                     b.Property<string>("Nombre");
 
                     b.HasDiscriminator().HasValue("UsuarioDeLaAplicacion");
+                });
+
+            modelBuilder.Entity("AplicacionWebMobileMetriks.Models.Empresa", b =>
+                {
+                    b.HasOne("AplicacionWebMobileMetriks.Models.UsuarioDeLaAplicacion", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
