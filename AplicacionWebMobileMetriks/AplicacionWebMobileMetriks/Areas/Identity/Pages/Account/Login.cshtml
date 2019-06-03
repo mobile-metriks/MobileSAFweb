@@ -7,18 +7,18 @@
 
 <h1 class="text-info">Iniciar Sesion</h1>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-8">
         <section>
             <form id="account" method="post">
                 <h4 class="text-info">Usa una cuenta local para iniciar sesion.</h4>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
+                <div class="form-group col-md-6">
                     <label asp-for="Input.Email"></label>
                     <input asp-for="Input.Email" class="form-control" />
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group col-md-6">
                     <label asp-for="Input.Password"></label>
                     <input asp-for="Input.Password" class="form-control" />
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
@@ -31,15 +31,15 @@
                         </label>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group col-md-6">
                     <button type="submit" class="btn btn-success form-control">Iniciar sesion</button>
                 </div>
-                <div class="form-group">
+                <div class="form-group col-md-6">
                     <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">¿Olvidaste tu contraseña?</a>
+                        <a class="btn btn-info form-control" id="forgot-password" asp-page="./ForgotPassword">¿Olvidaste tu contraseña?</a>
                     </p>
                     <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registrarse como nuevo usuario</a>
+                        <a class="btn btn-dark form-control" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registrarse como nuevo usuario</a>
                     </p>
                 </div>
             </form>

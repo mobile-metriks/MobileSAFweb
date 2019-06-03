@@ -79,10 +79,11 @@ namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
             //Si no es valido lo regreso a la misma vista
             return View(empresa);      
         }
-        
+
 
         //GET- Editar
         //Tomare el id del elemento seleccionado
+        [Authorize(Roles = SD.UsuarioAdministrador)]
         public async Task<IActionResult> Editar(Guid? id)
         {
             if (id==null)
@@ -117,6 +118,7 @@ namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
         }
 
         //Get-Borrar
+        [Authorize(Roles = SD.UsuarioAdministrador)]
         public async Task<IActionResult> Borrar(Guid? id)
         {
             if (id==null)
