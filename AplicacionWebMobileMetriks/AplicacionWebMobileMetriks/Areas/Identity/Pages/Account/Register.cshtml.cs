@@ -64,8 +64,6 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
 
             //Aqui agrego mas propiedades a mi modelo de registrarse
-            [Required(ErrorMessage = "La {0} es un campo requerido")]
-            public string Empresa { get; set; }
             [Required(ErrorMessage = "El {0} es un campo requerido")]
             public string Nombre { get; set; }
 
@@ -94,7 +92,6 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
                         UserName = Input.Email,
                         Email = Input.Email,
                         Nombre = Input.Nombre,
-                        Empresa = Input.Empresa,
                         IdAdministrador = userId,
 
                     };
@@ -116,7 +113,6 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
                     UserName = Input.Email,
                     Email = Input.Email,
                     Nombre = Input.Nombre,
-                    Empresa = Input.Empresa,
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
