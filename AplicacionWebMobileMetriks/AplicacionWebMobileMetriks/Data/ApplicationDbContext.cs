@@ -19,9 +19,15 @@ namespace AplicacionWebMobileMetriks.Data
         public DbSet<UsuarioDeLaAplicacion> UsuarioDeLaAplicacion { get; set; }
         public DbSet<Empresa> Empresas { get; set; }
         public DbSet<UsuariosEmpresas> usuariosEmpresas { get; set; }
+
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
+            
             base.OnModelCreating(builder);
+            //Esta es el fluent API de mi relacion de MtoM
             builder.Entity<UsuariosEmpresas>()
                 .HasKey(e => new { e.usuarioId, e.empresaId });
             builder.Entity<UsuariosEmpresas>()
@@ -30,7 +36,11 @@ namespace AplicacionWebMobileMetriks.Data
             builder.Entity<UsuariosEmpresas>()
               .HasOne(e => e.empresa).WithMany(e => e.UsuariosEmpresas).HasForeignKey(e => e.empresaId)
               .OnDelete(DeleteBehavior.Restrict);
-            
+
+            //Esta es el fluent API de mi relacion self join
+            builder.Entity<UsuarioDeLaAplicacion>().HasOne(u => u.Administrador).WithMany().HasForeignKey(u => u.IdAdministrador);
+
+
         }
     }
 }
