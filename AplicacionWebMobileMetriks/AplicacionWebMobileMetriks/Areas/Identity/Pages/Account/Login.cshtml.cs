@@ -36,11 +36,11 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage ="El campo Email es requerido")]
+            [EmailAddress(ErrorMessage ="Ese no es un Email valido")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "El campo Contraseña es requerido")]
             [DataType(DataType.Password)]
             [Display(Name = "Contraseña")]
             public string Password { get; set; }
@@ -91,7 +91,7 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Inicio de sesion invalido");
                     return Page();
                 }
             }

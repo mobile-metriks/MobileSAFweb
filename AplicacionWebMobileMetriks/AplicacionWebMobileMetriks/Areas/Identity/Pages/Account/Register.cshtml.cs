@@ -47,13 +47,13 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage ="El {0} es un campo requerido")]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "La {0} es un campo requerido")]
+            [StringLength(100, ErrorMessage = "La {0} debe contener almenos {2} caracteres y como maximo {1} caracteres.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Contraseña")]
             public string Password { get; set; }
@@ -64,9 +64,7 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
 
             //Aqui agrego mas propiedades a mi modelo de registrarse
-            [Required]
-            public string Empresa { get; set; }
-            [Required]
+            [Required(ErrorMessage = "El {0} es un campo requerido")]
             public string Nombre { get; set; }
 
             
@@ -94,7 +92,6 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
                         UserName = Input.Email,
                         Email = Input.Email,
                         Nombre = Input.Nombre,
-                        Empresa = Input.Empresa,
                         IdAdministrador = userId,
 
                     };
@@ -116,7 +113,6 @@ namespace AplicacionWebMobileMetriks.Areas.Identity.Pages.Account
                     UserName = Input.Email,
                     Email = Input.Email,
                     Nombre = Input.Nombre,
-                    Empresa = Input.Empresa,
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
