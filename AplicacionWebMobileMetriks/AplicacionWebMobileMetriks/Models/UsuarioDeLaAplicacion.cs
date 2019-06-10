@@ -18,7 +18,7 @@ namespace AplicacionWebMobileMetriks.Models
         public UsuarioDeLaAplicacion Administrador { get; set; }
 
         //Esta coleccion corresponde a el join de MtoM
-        public virtual ICollection<UsuariosEmpresas> UsuariosEmpresas { get; set; } 
+        //public virtual ICollection<UsuariosEmpresas> UsuariosEmpresas { get; set; } 
 
     }
 }
