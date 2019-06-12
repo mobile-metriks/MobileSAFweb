@@ -20,9 +20,7 @@ namespace AplicacionWebMobileMetriks.Models
         public int NumInterior { get; set; }
         [Required]
         public string Colonia { get; set; }
-        [Required]
         public string Localidad { get; set; }
-        [Required]
         public string Referencia { get; set; }
         [Required]
         public string Municipio { get; set; }
