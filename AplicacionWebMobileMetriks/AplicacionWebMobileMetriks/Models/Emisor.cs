@@ -30,7 +30,12 @@ namespace AplicacionWebMobileMetriks.Models
         public string Pais { get; set; }
         [Required]
         public int CodigoPostal { get; set; }
-
+        [Required]
+        [EmailAddress(ErrorMessage ="Correo invalido")]
+        public string Correo { get; set; }
+        [Required]
+        [Phone]
+        public string Telefono { get; set; }
         public string Imagen { get; set; }
         //Relacion hacia empresa
         [Display(Name ="Empresa")]

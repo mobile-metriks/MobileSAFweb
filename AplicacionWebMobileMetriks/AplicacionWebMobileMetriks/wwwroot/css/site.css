@@ -67,3 +67,9 @@ body {
     border-radius:10px;
     margin-bottom:30px;
 }
+
+.ImagenesIconos{
+    max-height:50px;
+    max-width:50px;
+    padding-left:10px;
+}
