@@ -44,16 +44,19 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>                                  
+                                    <a class="dropdown-item" href="#">Another action</a>
                                     <a class="dropdown-item" asp-action="Index" asp-controller="Usuario" asp-area="Admin">Usuarios</a>
                                 </div>
                             </li>
                         }
                         @*<li class="nav-item">
-                            <a class="nav-link " asp-area="Usuario" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>*@
+            <a class="nav-link " asp-area="Usuario" asp-controller="Home" asp-action="Index">Home</a>
+        </li>*@
                         <li class="nav-item">
                             <a class="nav-link" asp-action="Index" asp-controller="Empresa" asp-area="Admin">Empresas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Index" asp-controller="Emisor" asp-area="Usuario">Emisores</a>
                         </li>
                     </ul>
                 </div>

@@ -38,6 +38,9 @@ namespace AplicacionWebMobileMetriks
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+            //Agregar nueva conexion de DB para la base de datos "Base"
+            services.AddDbContext<BaseDB>(opciones => opciones.UseSqlServer(Configuration.GetConnectionString("ConexionDbBase")));
+
             //El DefaultIdentity no incluye los roles entonces le borro el Default y ademas le agrego IdentityRole
             services.AddIdentity<IdentityUser, IdentityRole>()
                 //Ademas le agrego los TokenProviders

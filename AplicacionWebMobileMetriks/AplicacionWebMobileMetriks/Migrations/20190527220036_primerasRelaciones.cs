@@ -174,6 +174,7 @@ namespace AplicacionWebMobileMetriks.Migrations
                         column: x => x.UsuarioId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
+                        //
                         onDelete: ReferentialAction.Restrict);
                 });
 

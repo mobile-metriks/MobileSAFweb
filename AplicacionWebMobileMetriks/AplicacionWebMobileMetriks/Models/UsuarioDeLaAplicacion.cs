@@ -13,7 +13,12 @@ namespace AplicacionWebMobileMetriks.Models
         //Agrego las propiedades que quiero anexar a la tabla IdentityUser
         public string Nombre { get; set; }
         public string IdAdministrador { get; set; }
-        public virtual ICollection<UsuariosEmpresas> UsuariosEmpresas { get; set; } 
+
+        //Creo el self join de usuarios
+        public UsuarioDeLaAplicacion Administrador { get; set; }
+
+        //Esta coleccion corresponde a el join de MtoM
+        //public virtual ICollection<UsuariosEmpresas> UsuariosEmpresas { get; set; } 
 
     }
 }

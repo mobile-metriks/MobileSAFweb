@@ -4,70 +4,22 @@ using AplicacionWebMobileMetriks.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AplicacionWebMobileMetriks.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190605001820_pruebaSelfJoinUsuarios")]
+    partial class pruebaSelfJoinUsuarios
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("AplicacionWebMobileMetriks.Models.Emisor", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Calle")
-                        .IsRequired();
-
-                    b.Property<int>("CodigoPostal");
-
-                    b.Property<string>("Colonia")
-                        .IsRequired();
-
-                    b.Property<string>("Correo")
-                        .IsRequired();
-
-                    b.Property<string>("Curp")
-                        .IsRequired();
-
-                    b.Property<Guid>("EmpresaId");
-
-                    b.Property<string>("Estado")
-                        .IsRequired();
-
-                    b.Property<string>("Imagen");
-
-                    b.Property<string>("Localidad");
-
-                    b.Property<string>("Municipio")
-                        .IsRequired();
-
-                    b.Property<int>("NumExterior");
-
-                    b.Property<int>("NumInterior");
-
-                    b.Property<string>("Pais")
-                        .IsRequired();
-
-                    b.Property<string>("Referencia");
-
-                    b.Property<string>("Telefono")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmpresaId");
-
-                    b.ToTable("Emisor");
-                });
 
             modelBuilder.Entity("AplicacionWebMobileMetriks.Models.Empresa", b =>
                 {
@@ -87,6 +39,19 @@ namespace AplicacionWebMobileMetriks.Migrations
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("Empresas");
+                });
+
+            modelBuilder.Entity("AplicacionWebMobileMetriks.Models.UsuariosEmpresas", b =>
+                {
+                    b.Property<string>("usuarioId");
+
+                    b.Property<Guid>("empresaId");
+
+                    b.HasKey("usuarioId", "empresaId");
+
+                    b.HasIndex("empresaId");
+
+                    b.ToTable("usuariosEmpresas");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -268,19 +233,24 @@ namespace AplicacionWebMobileMetriks.Migrations
                     b.HasDiscriminator().HasValue("UsuarioDeLaAplicacion");
                 });
 
-            modelBuilder.Entity("AplicacionWebMobileMetriks.Models.Emisor", b =>
-                {
-                    b.HasOne("AplicacionWebMobileMetriks.Models.Empresa", "Empresa")
-                        .WithMany()
-                        .HasForeignKey("EmpresaId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("AplicacionWebMobileMetriks.Models.Empresa", b =>
                 {
                     b.HasOne("AplicacionWebMobileMetriks.Models.UsuarioDeLaAplicacion", "Usuario")
                         .WithMany()
                         .HasForeignKey("UsuarioId");
+                });
+
+            modelBuilder.Entity("AplicacionWebMobileMetriks.Models.UsuariosEmpresas", b =>
+                {
+                    b.HasOne("AplicacionWebMobileMetriks.Models.Empresa", "empresa")
+                        .WithMany("UsuariosEmpresas")
+                        .HasForeignKey("empresaId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("AplicacionWebMobileMetriks.Models.UsuarioDeLaAplicacion", "usuario")
+                        .WithMany("UsuariosEmpresas")
+                        .HasForeignKey("usuarioId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
