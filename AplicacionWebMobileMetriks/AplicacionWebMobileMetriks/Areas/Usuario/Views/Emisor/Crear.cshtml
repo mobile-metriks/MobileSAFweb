@@ -14,14 +14,15 @@
 <form enctype="multipart/form-data" method="post">
     <div class="border fondoBlanco">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group row">
+        @*Parte de la relacion y crea lista desplegable de empresas
+            <div class="form-group row">
             <div class="col-2">
                 <label asp-for="@Model.Emisor.EmpresaId" class="col-form-label"></label>
             </div>
             <div class="col-5">
                 <select asp-for="Emisor.EmpresaId" id="EmpresaId" asp-items="Model.ListaEmpresa.ListItemParaSeleccionar(Model.Emisor.EmpresaId)" class="form-control"></select>
             </div>
-        </div>
+        </div>*@
         <div class="form-group row">
             <div class="col-2">
                 <label asp-for="Emisor.Imagen" class="col-form-label"></label>

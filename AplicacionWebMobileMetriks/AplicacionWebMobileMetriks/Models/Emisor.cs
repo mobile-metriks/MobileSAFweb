@@ -37,11 +37,12 @@ namespace AplicacionWebMobileMetriks.Models
         [Phone]
         public string Telefono { get; set; }
         public string Imagen { get; set; }
+    
         //Relacion hacia empresa
-        [Display(Name ="Empresa")]
-        public Guid EmpresaId { get; set; }
-        [ForeignKey("EmpresaId")]
-        public virtual Empresa Empresa { get; set; }
+        //[Display(Name ="Empresa")]
+        //public Guid EmpresaId { get; set; }
+        //[ForeignKey("EmpresaId")]
+        //public virtual Empresa Empresa { get; set; }
 
 
     }

@@ -4,20 +4,72 @@ using AplicacionWebMobileMetriks.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace AplicacionWebMobileMetriks.Migrations
+namespace AplicacionWebMobileMetriks.Migrations.BaseDBMigrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(BaseDB))]
+    [Migration("20190618193511_AgregandoEmisorAlaNuevaBD")]
+    partial class AgregandoEmisorAlaNuevaBD
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("AplicacionWebMobileMetriks.Models.Emisor", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Calle")
+                        .IsRequired();
+
+                    b.Property<int>("CodigoPostal");
+
+                    b.Property<string>("Colonia")
+                        .IsRequired();
+
+                    b.Property<string>("Correo")
+                        .IsRequired();
+
+                    b.Property<string>("Curp")
+                        .IsRequired();
+
+                    b.Property<Guid>("EmpresaId");
+
+                    b.Property<string>("Estado")
+                        .IsRequired();
+
+                    b.Property<string>("Imagen");
+
+                    b.Property<string>("Localidad");
+
+                    b.Property<string>("Municipio")
+                        .IsRequired();
+
+                    b.Property<int>("NumExterior");
+
+                    b.Property<int>("NumInterior");
+
+                    b.Property<string>("Pais")
+                        .IsRequired();
+
+                    b.Property<string>("Referencia");
+
+                    b.Property<string>("Telefono")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
+
+                    b.ToTable("emisor");
+                });
 
             modelBuilder.Entity("AplicacionWebMobileMetriks.Models.Empresa", b =>
                 {
@@ -36,7 +88,7 @@ namespace AplicacionWebMobileMetriks.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Empresas");
+                    b.ToTable("Empresa");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -209,13 +261,23 @@ namespace AplicacionWebMobileMetriks.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<string>("AdministradorId");
+
                     b.Property<string>("IdAdministrador");
 
                     b.Property<string>("Nombre");
 
-                    b.HasIndex("IdAdministrador");
+                    b.HasIndex("AdministradorId");
 
                     b.HasDiscriminator().HasValue("UsuarioDeLaAplicacion");
+                });
+
+            modelBuilder.Entity("AplicacionWebMobileMetriks.Models.Emisor", b =>
+                {
+                    b.HasOne("AplicacionWebMobileMetriks.Models.Empresa", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("AplicacionWebMobileMetriks.Models.Empresa", b =>
@@ -274,7 +336,7 @@ namespace AplicacionWebMobileMetriks.Migrations
                 {
                     b.HasOne("AplicacionWebMobileMetriks.Models.UsuarioDeLaAplicacion", "Administrador")
                         .WithMany()
-                        .HasForeignKey("IdAdministrador");
+                        .HasForeignKey("AdministradorId");
                 });
 #pragma warning restore 612, 618
         }

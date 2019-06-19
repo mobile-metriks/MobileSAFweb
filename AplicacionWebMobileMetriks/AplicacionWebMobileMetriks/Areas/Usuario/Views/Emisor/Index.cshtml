@@ -20,8 +20,8 @@
             <table class="table table-striped border">
                 <tr class="table-secondary">
                     <th>@Html.DisplayNameFor(m=>m.Imagen)</th>
-                    <th>@Html.DisplayNameFor(m => m.Empresa.Nombre)</th>
-                    <th>@Html.DisplayNameFor(m => m.Empresa.RFC)</th>
+                    @*<th>@Html.DisplayNameFor(m => m.Empresa.Nombre)</th>
+                    <th>@Html.DisplayNameFor(m => m.Empresa.RFC)</th>*@
                     <th>@Html.DisplayNameFor(m => m.Curp)</th>
                     <th></th>
                 </tr>
@@ -29,8 +29,8 @@
                 {
             <tr>
                 <td><img src="@Url.Content(item.Imagen)" class="ImagenesIconos img-thumbnail" /></td>
-                <td>@Html.DisplayFor(m => item.Empresa.Nombre)</td>
-                <td>@Html.DisplayFor(m => item.Empresa.RFC)</td>
+                @*<td>@Html.DisplayFor(m => item.Empresa.Nombre)</td>
+                <td>@Html.DisplayFor(m => item.Empresa.RFC)</td>*@
                 <td>@Html.DisplayFor(m => item.Curp)</td>
 
                 @*<partial name="_BotonesTablaPartial" model="item.Id" />*@

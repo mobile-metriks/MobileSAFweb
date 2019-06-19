@@ -22,15 +22,17 @@ namespace AplicacionWebMobileMetriks.Areas.Usuario.Controllers
         private readonly ApplicationDbContext _db;
         //necesitamos un hosting para guardar la imagen
         private readonly IHostingEnvironment _hosting;
+        private readonly BaseDB _dbBaseDB;
 
-        public EmisorController(ApplicationDbContext db, IHostingEnvironment hosting)
+        public EmisorController(ApplicationDbContext db, IHostingEnvironment hosting, BaseDB dbBaseDB)
         {
             _db = db;
             _hosting = hosting;
+            _dbBaseDB = dbBaseDB;
         }
         public async Task<IActionResult> Index()
         {
-            var emisorItems = await _db.Emisor.Include(x => x.Empresa).ToListAsync();
+            var emisorItems = await _dbBaseDB.emisor.ToListAsync();
             return View(emisorItems);
         }
         //Get-Crear
@@ -65,13 +67,13 @@ namespace AplicacionWebMobileMetriks.Areas.Usuario.Controllers
             {
                 return View(emisorVistaModelo);
             }
-            _db.Emisor.Add(emisorVistaModelo.Emisor);
-            await _db.SaveChangesAsync();
+            _dbBaseDB.emisor.Add(emisorVistaModelo.Emisor);
+            await _dbBaseDB.SaveChangesAsync();
             //Trabajar en la seccion de guardar la imagen
             string webRootPath = _hosting.WebRootPath;
             var archivos = HttpContext.Request.Form.Files;
 
-            var emisorDesdeDb = await _db.Emisor.FindAsync(emisorVistaModelo.Emisor.Id);
+            var emisorDesdeDb = await _dbBaseDB.emisor.FindAsync(emisorVistaModelo.Emisor.Id);
             if (archivos.Count() > 0)
             {
                 //Los archivos fueron subidos
@@ -92,7 +94,7 @@ namespace AplicacionWebMobileMetriks.Areas.Usuario.Controllers
                 System.IO.File.Copy(subidos, webRootPath + @"\Imagenes\" + emisorVistaModelo.Emisor.Id + ".jpg");
                 emisorDesdeDb.Imagen = @"\Imagenes\" + emisorVistaModelo.Emisor.Id + ".jpg";
             }
-            await _db.SaveChangesAsync();
+            await _dbBaseDB.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
     }
