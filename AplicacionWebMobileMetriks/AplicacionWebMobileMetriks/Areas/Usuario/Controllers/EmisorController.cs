@@ -36,15 +36,29 @@ namespace AplicacionWebMobileMetriks.Areas.Usuario.Controllers
             return View(emisorItems);
         }
         //Get-Crear
-        public async Task<IActionResult>  Crear()
+        public async Task<IActionResult>  Crear(Guid id)
         {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var empresa = await _db.Empresas.FindAsync(id);
+            if (empresa == null)
+            {
+                return NotFound();
+            }
+            
+
+
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (User.IsInRole(SD.UsuarioAdministrador))
             {
                 EmisorVistaModelo emisorVistaModeloAdmin = new EmisorVistaModelo()
                 {
                     Emisor = new Models.Emisor(),
-                    ListaEmpresa = await _db.Empresas.Where(x => x.UsuarioId == userId).ToListAsync(),
+                    Empresa = empresa
+                    //ListaEmpresa = await _db.Empresas.Where(x => x.UsuarioId == userId).ToListAsync(),
                 };
                 return View(emisorVistaModeloAdmin);
             }
@@ -52,7 +66,7 @@ namespace AplicacionWebMobileMetriks.Areas.Usuario.Controllers
             EmisorVistaModelo emisorVistaModeloUsuario = new EmisorVistaModelo()
             {
                 Emisor = new Models.Emisor(),
-                ListaEmpresa = await _db.Empresas.Where(x => x.UsuarioId == Idadmin).ToListAsync(),
+                //ListaEmpresa = await _db.Empresas.Where(x => x.UsuarioId == Idadmin).ToListAsync(),
             };
 
             return View(emisorVistaModeloUsuario);

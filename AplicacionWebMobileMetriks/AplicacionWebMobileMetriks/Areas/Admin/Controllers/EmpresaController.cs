@@ -46,12 +46,12 @@ namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
 
         }
         [Authorize(Roles =SD.UsuarioAdministrador)]
-        //GET - Crear
+        //GET - CrearEmpresa
         public IActionResult Crear()
         {
             return View();
         }
-        //POST - Crear
+        //POST - CrearEmpresa
         //Declaro que utiliza el metodo post
         [HttpPost]
         //Declaro para cuestiones de seguridad

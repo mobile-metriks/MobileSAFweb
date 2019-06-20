@@ -8,6 +8,8 @@ namespace AplicacionWebMobileMetriks.Models.ViewModels
     public class EmisorVistaModelo
     {
         public Emisor Emisor { get; set; }
-        public IEnumerable<Empresa> ListaEmpresa { get; set; }
+        public Empresa Empresa { get; set; }
+        //Esto es de la lista desplegable
+        //public IEnumerable<Empresa> ListaEmpresa { get; set; }
     }
 }
