@@ -25,7 +25,7 @@ namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
             this._db = db;
         }
         //GET-Index
-        public async Task<IActionResult> Index(UsuarioDeLaAplicacion usuario)
+        public async Task<IActionResult> Index()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             

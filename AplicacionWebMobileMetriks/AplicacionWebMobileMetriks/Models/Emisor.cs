@@ -11,6 +11,11 @@ namespace AplicacionWebMobileMetriks.Models
     {
         public Guid Id { get; set; }
         [Required]
+        public string RFC { get; set; }
+        [Required]
+        [Display(Name ="Nombre/Razón Social")]
+        public string Nombre { get; set; }
+        [Required]
         public string Curp { get; set; }
         [Required]
         public string Calle { get; set; }
@@ -37,7 +42,6 @@ namespace AplicacionWebMobileMetriks.Models
         [Phone]
         public string Telefono { get; set; }
         public string Imagen { get; set; }
-        public Guid IdEmpresa { get; set; }
 
         //Relacion hacia empresa
         //[Display(Name ="Empresa")]

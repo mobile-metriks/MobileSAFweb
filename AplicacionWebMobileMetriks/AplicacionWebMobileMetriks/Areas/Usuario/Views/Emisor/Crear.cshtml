@@ -23,14 +23,26 @@
                 <select asp-for="Emisor.EmpresaId" id="EmpresaId" asp-items="Model.ListaEmpresa.ListItemParaSeleccionar(Model.Emisor.EmpresaId)" class="form-control"></select>
             </div>
         </div>*@
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="Empresa.Id" class="col-form-label"></label>
-            </div>
-            <div class="col-5">
-                <input asp-for="Empresa.Id" class="form-control" readonly />
-            </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Emisor.RFC" class="col-form-label"></label>
         </div>
+        <div class="col-5">
+            <input asp-for="Emisor.RFC" class="form-control" />
+        </div>
+        <span asp-validation-for="Emisor.RFC" class="text-danger"></span>
+
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Emisor.Nombre" class="col-form-label"></label>
+        </div>
+        <div class="col-5">
+            <input asp-for="Emisor.Nombre" class="form-control" />
+        </div>
+        <span asp-validation-for="Emisor.Nombre" class="text-danger"></span>
+
+    </div>
         <div class="form-group row">
             <div class="col-2">
                 <label asp-for="Emisor.Imagen" class="col-form-label"></label>

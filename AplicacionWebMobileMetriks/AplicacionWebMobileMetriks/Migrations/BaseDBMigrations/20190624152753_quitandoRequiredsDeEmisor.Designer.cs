@@ -4,14 +4,16 @@ using AplicacionWebMobileMetriks.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AplicacionWebMobileMetriks.Migrations.BaseDBMigrations
 {
     [DbContext(typeof(BaseDB))]
-    partial class BaseDBModelSnapshot : ModelSnapshot
+    [Migration("20190624152753_quitandoRequiredsDeEmisor")]
+    partial class quitandoRequiredsDeEmisor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,8 +50,7 @@ namespace AplicacionWebMobileMetriks.Migrations.BaseDBMigrations
                     b.Property<string>("Municipio")
                         .IsRequired();
 
-                    b.Property<string>("Nombre")
-                        .IsRequired();
+                    b.Property<string>("Nombre");
 
                     b.Property<int>("NumExterior");
 
@@ -58,8 +59,7 @@ namespace AplicacionWebMobileMetriks.Migrations.BaseDBMigrations
                     b.Property<string>("Pais")
                         .IsRequired();
 
-                    b.Property<string>("RFC")
-                        .IsRequired();
+                    b.Property<string>("RFC");
 
                     b.Property<string>("Referencia");
 
