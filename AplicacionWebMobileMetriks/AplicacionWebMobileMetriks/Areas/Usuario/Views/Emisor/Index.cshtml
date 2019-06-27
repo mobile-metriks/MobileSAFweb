@@ -40,7 +40,7 @@
                 @*@foreach (var item in Model)
                 {*@
             <tr>
-                <td><img src="@Url.Content(Model.Imagen)" class="ImagenesIconos img-thumbnail" /></td>
+                <td><img src="@Model.Imagen" class="ImagenesIconos img-thumbnail" /></td>
                 <td>@Html.DisplayFor(m => Model.Curp)</td>
 
                 @*<partial name="_BotonesTablaPartial" model="item.Id" />*@
