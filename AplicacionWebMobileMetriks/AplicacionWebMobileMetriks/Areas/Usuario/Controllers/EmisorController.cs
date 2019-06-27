@@ -33,40 +33,13 @@ namespace AplicacionWebMobileMetriks.Areas.Usuario.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var emisorItems = await _dbBaseDB.emisor.ToListAsync();
+            var emisorItems = await _dbBaseDB.emisor.FirstOrDefaultAsync();
             return View(emisorItems);
         }
         //Get-Crear
         public IActionResult Crear()
         {
-            //if (id == null)
-            //{
-            //    return NotFound();
-            //}
-            //var empresa = await _db.Empresas.FindAsync(id);
-            
-            //if (empresa == null)
-            //{
-            //    return NotFound();
-            //}
-            //if (User.IsInRole(SD.UsuarioAdministrador))
-            //{
-            //EmisorVistaModelo emisorVistaModeloAdmin = new EmisorVistaModelo()
-            //{
-            //    Emisor = new Models.Emisor(),
-                //Empresa = empresa
-                //ListaEmpresa = await _db.Empresas.Where(x => x.UsuarioId == userId).ToListAsync(),
-            //};
-            return View(/*emisorVistaModeloAdmin*/);
-            //}
-            //var Idadmin = await _db.UsuarioDeLaAplicacion.Where(x => x.IdAdministrador != null).Where(x => x.Id == userId).Select(x => x.IdAdministrador).FirstOrDefaultAsync();
-            //EmisorVistaModelo emisorVistaModeloUsuario = new EmisorVistaModelo()
-            //{
-            //    Emisor = new Models.Emisor(),
-            //    //ListaEmpresa = await _db.Empresas.Where(x => x.UsuarioId == Idadmin).ToListAsync(),
-            //};
-
-            //return View(emisorVistaModeloUsuario);
+            return View();
         }
 
         //Post-Crear
@@ -74,10 +47,6 @@ namespace AplicacionWebMobileMetriks.Areas.Usuario.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CrearPost(Emisor emisor)
         {
-            //Esto lo uso para asignar el valor a la tabla IdEmpresa
-            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //var Idempresa = await _db.Empresas.Where(x => x.Id != null).Where(x => x.UsuarioId == userId).Select(x => x.Id).FirstOrDefaultAsync();
-            //emisorVistaModelo.Emisor.IdEmpresa = Idempresa;
             if (!ModelState.IsValid)
             {
                 return View(emisor);
@@ -111,6 +80,41 @@ namespace AplicacionWebMobileMetriks.Areas.Usuario.Controllers
             }
             await _dbBaseDB.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        //GET- Editar
+        //Tomare el id del elemento seleccionado
+        public async Task<IActionResult> Editar(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            //Con el id seleccionado ahora la busco en la BD
+            var emisor = await _dbBaseDB.emisor.FindAsync(id);
+            if (emisor == null)
+            {
+                return NotFound();
+            }
+            //Ya que lo encuentra regreso una vista de la empresa seleccionada
+            return View(emisor);
+        }
+
+        //Post-Editar
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Editar(Empresa empresa)
+        {
+            //Aqui asigne que al crear lo primero que haga sea asignar el valor del id de usuarios al id de UsuariosId de empresas
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            empresa.UsuarioId = userId;
+            if (ModelState.IsValid)
+            {
+                _db.Empresas.Update(empresa);
+                await _db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(empresa);
         }
     }
 }

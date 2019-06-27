@@ -1,8 +1,9 @@
 ﻿using System;
+using AplicacionWebMobileMetriks.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace AplicacionWebMobileMetriks.Models
+namespace AplicacionWebMobileMetriks.Data
 {
     public partial class CatalogosContext : DbContext
     {

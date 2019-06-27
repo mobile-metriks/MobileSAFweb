@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Emisor>
+﻿@model Emisor
     @{
         ViewData["Title"] = "Index";
     }
@@ -13,7 +13,14 @@
                 @*Creo una vista parcial de el boton crear para reusar y lo llamo*@
                 <div class="btn-group" role="group">
                     <a asp-area="Usuario" asp-controller="Emisor" asp-action="" class="btn btn-info"><i class="fa fa-plus"></i> &nbsp;Nuevo Comprobante</a>&nbsp;
-                    <a asp-area="Usuario" asp-controller="Emisor" asp-action="Crear" class="btn btn-dark"><i class="fa fa-plus"></i> &nbsp;Datos Generales</a>&nbsp;
+                    @if (Model == null)
+                    {
+                        <a asp-area="Usuario" asp-controller="Emisor" asp-action="Crear" class="btn btn-dark"><i class="fa fa-plus"></i> &nbsp;Datos Generales</a>
+                    }
+                    else
+                    {
+                        <a asp-area="Usuario" asp-controller="Emisor" asp-route-id="@Model.Id" asp-action="Editar" class="btn btn-dark"><i class="fa fa-plus"></i> &nbsp;Datos Generales</a>
+                    }
                     <a asp-area="Usuario" asp-controller="Emisor" asp-action="" class="btn btn-danger"><i class="fa fa-plus"></i> &nbsp;Sucursales</a>&nbsp;
                     <a asp-area="Usuario" asp-controller="Emisor" asp-action="" class="btn btn-success"><i class="fa fa-plus"></i> &nbsp;Catalogo de Clientes</a>&nbsp;
                     <a asp-area="Usuario" asp-controller="Emisor" asp-action="" class="btn btn-primary"><i class="fa fa-plus"></i> &nbsp;Catalogo de Productos</a>&nbsp;
@@ -22,28 +29,24 @@
             </div>
         </div>
         <br />
-        @if (Model.Count() > 0)
+        @if (Model != null)
         {
             <table class="table table-striped border">
                 <tr class="table-secondary">
                     <th>@Html.DisplayNameFor(m=>m.Imagen)</th>
-                    @*<th>@Html.DisplayNameFor(m => m.Empresa.Nombre)</th>
-                    <th>@Html.DisplayNameFor(m => m.Empresa.RFC)</th>*@
                     <th>@Html.DisplayNameFor(m => m.Curp)</th>
                     <th></th>
                 </tr>
-                @foreach (var item in Model)
-                {
+                @*@foreach (var item in Model)
+                {*@
             <tr>
-                <td><img src="@Url.Content(item.Imagen)" class="ImagenesIconos img-thumbnail" /></td>
-                @*<td>@Html.DisplayFor(m => item.Empresa.Nombre)</td>
-                <td>@Html.DisplayFor(m => item.Empresa.RFC)</td>*@
-                <td>@Html.DisplayFor(m => item.Curp)</td>
+                <td><img src="@Url.Content(Model.Imagen)" class="ImagenesIconos img-thumbnail" /></td>
+                <td>@Html.DisplayFor(m => Model.Curp)</td>
 
                 @*<partial name="_BotonesTablaPartial" model="item.Id" />*@
 
             </tr>
-                }
+                @*}*@
             </table>
         }
         else
