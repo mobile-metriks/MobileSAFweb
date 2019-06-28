@@ -34,6 +34,7 @@ namespace AplicacionWebMobileMetriks.Models
         [Required]
         public string Pais { get; set; }
         [Required]
+        [Display(Name ="Codigo Postal")]
         public int CodigoPostal { get; set; }
         [Required]
         [EmailAddress(ErrorMessage ="Correo invalido")]
