@@ -19,6 +19,7 @@ namespace AplicacionWebMobileMetriks.Models
         public string Curp { get; set; }
         [Required]
         public string Calle { get; set; }
+        [Display(Name ="Numero de Exterior")]
         [Required]
         public int NumExterior { get; set; }
         [Required]
