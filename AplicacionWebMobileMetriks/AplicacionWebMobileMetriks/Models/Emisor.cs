@@ -22,6 +22,7 @@ namespace AplicacionWebMobileMetriks.Models
         [Display(Name ="Numero de Exterior")]
         [Required]
         public int NumExterior { get; set; }
+        [Display(Name = "Numero de Interior")]
         [Required]
         public int NumInterior { get; set; }
         [Required]
