@@ -1,43 +1,43 @@
 ﻿@model Emisor
-    @{
-        ViewData["Title"] = "Index";
-    }
+@{
+    ViewData["Title"] = "Index";
+}
 
-    <br /><br />
-    <div class="border fondoBlanco">
-        <div class="row">
-            <div class="col-12">
-                <h2 class="text-info">Empresa</h2>
-            </div>
-            <div class="col-10">
-                @*Creo una vista parcial de el boton crear para reusar y lo llamo*@
-                <div class="btn-group" role="group">
-                    <a asp-area="Usuario" asp-controller="Emisor" asp-action="" class="btn btn-info"><i class="fa fa-plus"></i> &nbsp;Nuevo Comprobante</a>&nbsp;
-                    @if (Model == null)
-                    {
-                        <a asp-area="Usuario" asp-controller="Emisor" asp-action="Crear" class="btn btn-dark"><i class="fa fa-plus"></i> &nbsp;Datos Generales</a>
-                    }
-                    else
-                    {
-                        <a asp-area="Usuario" asp-controller="Emisor" asp-route-id="@Model.Id" asp-action="Editar" class="btn btn-dark"><i class="fa fa-plus"></i> &nbsp;Datos Generales</a>
-                    }
-                    <a asp-area="Usuario" asp-controller="Emisor" asp-action="" class="btn btn-danger"><i class="fa fa-plus"></i> &nbsp;Sucursales</a>&nbsp;
-                    <a asp-area="Usuario" asp-controller="Emisor" asp-action="" class="btn btn-success"><i class="fa fa-plus"></i> &nbsp;Catalogo de Clientes</a>&nbsp;
-                    <a asp-area="Usuario" asp-controller="Emisor" asp-action="" class="btn btn-primary"><i class="fa fa-plus"></i> &nbsp;Catalogo de Productos</a>&nbsp;
-                    <a asp-area="Usuario" asp-controller="Emisor" asp-action="#" class="btn btn-secondary"><i class="fa fa-plus"></i> &nbsp;Ayuda</a>
-                </div>
+<br /><br />
+<div class="border fondoBlanco">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-info">Empresa</h2>
+        </div>
+        <div class="col-10">
+            @*Creo una vista parcial de el boton crear para reusar y lo llamo*@
+            <div class="btn-group" role="group">
+                <a asp-area="Usuario" asp-controller="Emisor" asp-action="" class="btn btn-info"><i class="fa fa-plus"></i> &nbsp;Nuevo Comprobante</a>&nbsp;
+                @if (Model == null)
+                {
+                    <a asp-area="Usuario" asp-controller="Emisor" asp-action="Crear" class="btn btn-dark"><i class="fa fa-plus"></i> &nbsp;Datos Generales</a>
+                }
+                else
+                {
+                    <a asp-area="Usuario" asp-controller="Emisor" asp-route-id="@Model.Id" asp-action="Editar" class="btn btn-dark"><i class="fa fa-plus"></i> &nbsp;Datos Generales</a>
+                }
+                <a asp-area="Usuario" asp-controller="Emisor" asp-action="" class="btn btn-danger"><i class="fa fa-plus"></i> &nbsp;Sucursales</a>&nbsp;
+                <a asp-area="Usuario" asp-controller="Emisor" asp-action="" class="btn btn-success"><i class="fa fa-plus"></i> &nbsp;Catalogo de Clientes</a>&nbsp;
+                <a asp-area="Usuario" asp-controller="Emisor" asp-action="" class="btn btn-primary"><i class="fa fa-plus"></i> &nbsp;Catalogo de Productos</a>&nbsp;
+                <a asp-area="Usuario" asp-controller="Emisor" asp-action="#" class="btn btn-secondary"><i class="fa fa-plus"></i> &nbsp;Ayuda</a>
             </div>
         </div>
-        <br />
-        @if (Model != null)
-        {
-            <table class="table table-striped border">
-                <tr class="table-secondary">
-                    <th>@Html.DisplayNameFor(m=>m.Imagen)</th>
-                    <th>@Html.DisplayNameFor(m => m.Curp)</th>
-                    <th></th>
-                </tr>
-                @*@foreach (var item in Model)
+    </div>
+    <br />
+    @if (Model!= null)
+    {
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th>@Html.DisplayNameFor(m => m.Imagen)</th>
+                <th>@Html.DisplayNameFor(m => m.Curp)</th>
+                <th></th>
+            </tr>
+            @*@foreach (var item in Model)
                 {*@
             <tr>
                 <td><img src="@Model.Imagen" class="ImagenesIconos img-thumbnail" /></td>
@@ -46,11 +46,11 @@
                 @*<partial name="_BotonesTablaPartial" model="item.Id" />*@
 
             </tr>
-                @*}*@
-            </table>
-        }
-        else
-        {
-            <p>Aun no existen emisores</p>
-        }
-    </div>
+            @*}*@
+        </table>
+    }
+    else
+    {
+        <p>Aun no existen emisores</p>
+    }
+</div>
