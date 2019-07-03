@@ -38,7 +38,7 @@ namespace AplicacionWebMobileMetriks.Areas.Usuario.Controllers
             var emisorItems = await _dbBaseDB.emisor.FirstOrDefaultAsync();
             return View(emisorItems);
         }
-        //Get-Crear
+        //Get-Crear emisor
         public async Task<IActionResult> Crear()
         {
             EmisorVistaModelo modelo = new EmisorVistaModelo()
@@ -47,20 +47,39 @@ namespace AplicacionWebMobileMetriks.Areas.Usuario.Controllers
                 RegimenEmisor = new Models.RegimenEmisor(),
                 Emisor = new Models.Emisor(),               
             };
-            ViewBag.listofitems = modelo.ListaRegimen;
+            ViewBag.listofitemsRegimen = modelo.ListaRegimen;
+            return View(modelo);
+        }
+        //Get-Crear Receptor
+        public async Task<IActionResult> CrearReceptor()
+        {
+            ReceptorVistaModelo modelo = new ReceptorVistaModelo()
+            {
+                Receptores = new Receptores(),
+                ListaFormaPago = await _dbCatalogos.FormaPago.ToListAsync(),
+                ListaMoneda = await _dbCatalogos.Moneda.OrderBy(x=>x.Descripcion).ToListAsync(),
+                ListaPais = await _dbCatalogos.Pais.ToListAsync(),
+                ListaUsoCfdi = await _dbCatalogos.UsoCfdi.ToListAsync()
+            };
+            ViewBag.listofitemsMoneda = modelo.ListaMoneda;
             return View(modelo);
         }
 
-        //Post-Crear
+        //Post-Crear emisor
         [HttpPost, ActionName("Crear")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CrearPost(EmisorVistaModelo emisorVistaModelo)
         {
-
-
             if (!ModelState.IsValid)
             {
-                return View(emisorVistaModelo);
+                EmisorVistaModelo modelo = new EmisorVistaModelo()
+                {
+                    ListaRegimen = await _dbCatalogos.RegimenFiscal.ToListAsync(),
+                    RegimenEmisor = new Models.RegimenEmisor(),
+                    Emisor = new Models.Emisor(),
+                };
+                ViewBag.listofitemsRegimen = modelo.ListaRegimen;
+                return View(modelo);
             }
             _dbBaseDB.RegimenEmisores.Add(emisorVistaModelo.RegimenEmisor);
             _dbBaseDB.emisor.Add(emisorVistaModelo.Emisor);
@@ -94,7 +113,7 @@ namespace AplicacionWebMobileMetriks.Areas.Usuario.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //GET- Editar
+        //GET- Editar Emisor
         //Tomare el id del elemento seleccionado
         public async Task<IActionResult> Editar(Guid? id)
         {
@@ -118,23 +137,32 @@ namespace AplicacionWebMobileMetriks.Areas.Usuario.Controllers
             ViewBag.listofitems = modelo.ListaRegimen;
             return View(modelo);
         }
-        //Post-Crear
+        //Post-Editar Emisor
         [HttpPost, ActionName("Editar")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditarPost(Guid? id, EmisorVistaModelo emisorVistaModelo)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            //Con el id seleccionado ahora la busco en la BD
+            var emisor = await _dbBaseDB.emisor.SingleOrDefaultAsync(m => m.Id == id);
+            if (emisor == null)
+            {
+                return NotFound();
+            }
             if (!ModelState.IsValid)
             {
                 EmisorVistaModelo modelo = new EmisorVistaModelo()
                 {
                     ListaRegimen = await _dbCatalogos.RegimenFiscal.ToListAsync(),
                     RegimenEmisor = new Models.RegimenEmisor(),
-                    Emisor = new Models.Emisor(),
+                    Emisor = emisor,
                 };
+                ViewBag.listofitems = modelo.ListaRegimen;
                 return View(modelo);
             }
-            //_dbBaseDB.emisor.Add(emisor);
-            //await _dbBaseDB.SaveChangesAsync();
             //Trabajar en la seccion de guardar la nueva imagen
             string webRootPath = _hosting.WebRootPath;
             var archivos = HttpContext.Request.Form.Files;

@@ -1,0 +1,45 @@
+﻿@model AplicacionWebMobileMetriks.Models.ViewModels.ReceptorVistaModelo
+
+@{
+    ViewData["Title"] = "Crear Receptor";
+}
+
+<br />
+<h2 class="text-info">Crear Receptor</h2>
+<br />
+
+@*Usaremos un form para que aplique el metodo post y guarde los datos, utilizo enctype para que guarde la imagen*@
+<form enctype="multipart/form-data" method="post" asp-action="CrearReceptor">
+    <div class="border fondoBlanco">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Receptores.C_Moneda" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <select asp-for="Receptores.C_Moneda" asp-items="@(new SelectList(@ViewBag.listofitemsMoneda,"CMoneda","Descripcion"))" class="form-control">
+                    <option>--Selecciona Uno</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Receptores.Identificador" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Receptores.Identificador" class="form-control" />
+            </div>
+            <span asp-validation-for="Receptores.Identificador" class="text-danger"></span>
+        </div>
+        <div class="col-5 offset-2">
+            <div class="row">
+                <div class="col-6">
+                    <input type="submit" class="btn btn-info form-control" value="Crear" />
+                </div>
+                <div class="col-6">
+                    <a asp-action="Index" class="btn btn-success form-control">Regresar a la lista</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
