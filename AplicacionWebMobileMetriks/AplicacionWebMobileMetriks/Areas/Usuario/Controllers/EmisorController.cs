@@ -62,6 +62,9 @@ namespace AplicacionWebMobileMetriks.Areas.Usuario.Controllers
                 ListaUsoCfdi = await _dbCatalogos.UsoCfdi.ToListAsync()
             };
             ViewBag.listofitemsMoneda = modelo.ListaMoneda;
+            ViewBag.listofitemsFormaPago = modelo.ListaFormaPago;
+            ViewBag.listofitemsPais = modelo.ListaPais;
+            ViewBag.listofitemsUsoCfdi = modelo.ListaUsoCfdi;
             return View(modelo);
         }
 

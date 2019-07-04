@@ -34,6 +34,7 @@ namespace AplicacionWebMobileMetriks.Models
         public long IdFormaPago { get; set; }
         [Required]
         public long IdUsoCfdi { get; set; }
+        [Display(Name ="Tax ID")]
         public string NumIdRegTrib  { get; set; }
     }
 }

@@ -14,6 +14,33 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group row">
             <div class="col-2">
+                <label asp-for="Receptores.Identificador" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Receptores.Identificador" class="form-control" />
+            </div>
+            <span asp-validation-for="Receptores.Identificador" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Receptores.RFC" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Receptores.RFC" class="form-control" />
+            </div>
+            <span asp-validation-for="Receptores.RFC" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Receptores.Calle" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Receptores.Calle" class="form-control" />
+            </div>
+            <span asp-validation-for="Receptores.Calle" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
                 <label asp-for="Receptores.C_Moneda" class="col-form-label"></label>
             </div>
             <div class="col-5">
@@ -24,12 +51,42 @@
         </div>
         <div class="form-group row">
             <div class="col-2">
-                <label asp-for="Receptores.Identificador" class="col-form-label"></label>
+                <label asp-for="Receptores.IdFormaPago" class="col-form-label"></label>
             </div>
             <div class="col-5">
-                <input asp-for="Receptores.Identificador" class="form-control" />
+                <select asp-for="Receptores.IdFormaPago" asp-items="@(new SelectList(@ViewBag.listofitemsFormaPago,"IdFormaPago","Descripcion"))" class="form-control">
+                    <option>--Selecciona Uno</option>
+                </select>
             </div>
-            <span asp-validation-for="Receptores.Identificador" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Receptores.IdPais" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <select asp-for="Receptores.IdPais" asp-items="@(new SelectList(@ViewBag.listofitemsPais,"IdPais","Descripcion"))" class="form-control">
+                    <option>--Selecciona Uno</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Receptores.IdUsoCfdi" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <select asp-for="Receptores.IdUsoCfdi" asp-items="@(new SelectList(@ViewBag.listofitemsUsoCfdi,"IdUsoCfdi","Descripcion"))" class="form-control">
+                    <option>--Selecciona Uno</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Receptores.NumIdRegTrib" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Receptores.NumIdRegTrib" class="form-control" />
+            </div>
+            <span asp-validation-for="Receptores.NumIdRegTrib" class="text-danger"></span>
         </div>
         <div class="col-5 offset-2">
             <div class="row">
