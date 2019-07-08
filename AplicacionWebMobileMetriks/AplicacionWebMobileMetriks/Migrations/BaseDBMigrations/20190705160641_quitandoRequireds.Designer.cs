@@ -4,14 +4,16 @@ using AplicacionWebMobileMetriks.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AplicacionWebMobileMetriks.Migrations.BaseDBMigrations
 {
     [DbContext(typeof(BaseDB))]
-    partial class BaseDBModelSnapshot : ModelSnapshot
+    [Migration("20190705160641_quitandoRequireds")]
+    partial class quitandoRequireds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,6 +85,10 @@ namespace AplicacionWebMobileMetriks.Migrations.BaseDBMigrations
 
                     b.Property<int>("CodigoPostal");
 
+                    b.Property<string>("Colonia");
+
+                    b.Property<string>("Estado");
+
                     b.Property<long>("IdFormaPago");
 
                     b.Property<long>("IdPais");
@@ -92,10 +98,20 @@ namespace AplicacionWebMobileMetriks.Migrations.BaseDBMigrations
                     b.Property<string>("Identificador")
                         .IsRequired();
 
+                    b.Property<string>("Localidad");
+
+                    b.Property<string>("Municipio");
+
+                    b.Property<string>("NumExt");
+
                     b.Property<string>("NumIdRegTrib");
+
+                    b.Property<string>("NumInt");
 
                     b.Property<string>("RFC")
                         .IsRequired();
+
+                    b.Property<string>("Referencia");
 
                     b.HasKey("IdReceptor");
 

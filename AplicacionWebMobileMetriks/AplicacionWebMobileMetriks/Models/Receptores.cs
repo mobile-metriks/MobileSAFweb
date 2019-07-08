@@ -17,16 +17,11 @@ namespace AplicacionWebMobileMetriks.Models
         [Required]
         public string Cliente { get; set; }
         [Required]
+        [Display(Name ="Domicilio")]
         public string Calle { get; set; }
-        public string NumExt { get; set; }
-        public string NumInt { get; set; }
-        public string Colonia { get; set; }
-        public string Localidad { get; set; }
-        public string Referencia { get; set; }
-        public string Municipio { get; set; }
-        public string Estado { get; set; }
         [Required]
         public long IdPais { get; set; }
+        [Required]
         public int CodigoPostal { get; set; }
         [Required]
         public string C_Moneda { get; set; }

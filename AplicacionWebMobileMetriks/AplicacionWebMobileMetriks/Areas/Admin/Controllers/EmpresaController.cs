@@ -34,12 +34,6 @@ namespace AplicacionWebMobileMetriks.Areas.Admin.Controllers
                 //Hago que regrese la lista de empresas donde el UsuarioId sea igual al Id del usuario actual
                 return View(await _db.Empresas.Where(x => x.UsuarioId == userId).ToListAsync());
             }
-            //var usuarioEmpresa = await _db.usuariosEmpresas.Include(m=>m.empresa).Include(m=>m.usuario).ToListAsync();
-            //var Idadmin = from user in _db.UsuarioDeLaAplicacion
-            //              join empre in _db.Empresas
-            //              on user.IdAdministrador equals empre.UsuarioId
-            //              where user.IdAdministrador == empre.UsuarioId && user.IdAdministrador != null
-            //              select user.IdAdministrador;
             var Idadmin = await _db.UsuarioDeLaAplicacion.Where(x => x.IdAdministrador != null).Where(x=>x.Id==userId).Select(x => x.IdAdministrador).FirstOrDefaultAsync();
             return View(await _db.Empresas.Where(x => x.UsuarioId == Idadmin).ToListAsync());
 

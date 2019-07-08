@@ -4,14 +4,16 @@ using AplicacionWebMobileMetriks.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AplicacionWebMobileMetriks.Migrations.BaseDBMigrations
 {
     [DbContext(typeof(BaseDB))]
-    partial class BaseDBModelSnapshot : ModelSnapshot
+    [Migration("20190705152358_cambiosReceptores")]
+    partial class cambiosReceptores
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,24 +26,29 @@ namespace AplicacionWebMobileMetriks.Migrations.BaseDBMigrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Calle");
+                    b.Property<string>("Calle")
+                        .IsRequired();
 
                     b.Property<int>("CodigoPostal");
 
-                    b.Property<string>("Colonia");
+                    b.Property<string>("Colonia")
+                        .IsRequired();
 
                     b.Property<string>("Correo")
                         .IsRequired();
 
-                    b.Property<string>("Curp");
+                    b.Property<string>("Curp")
+                        .IsRequired();
 
-                    b.Property<string>("Estado");
+                    b.Property<string>("Estado")
+                        .IsRequired();
 
                     b.Property<string>("Imagen");
 
                     b.Property<string>("Localidad");
 
-                    b.Property<string>("Municipio");
+                    b.Property<string>("Municipio")
+                        .IsRequired();
 
                     b.Property<string>("Nombre")
                         .IsRequired();
@@ -83,6 +90,10 @@ namespace AplicacionWebMobileMetriks.Migrations.BaseDBMigrations
 
                     b.Property<int>("CodigoPostal");
 
+                    b.Property<string>("Colonia");
+
+                    b.Property<string>("Estado");
+
                     b.Property<long>("IdFormaPago");
 
                     b.Property<long>("IdPais");
@@ -92,10 +103,20 @@ namespace AplicacionWebMobileMetriks.Migrations.BaseDBMigrations
                     b.Property<string>("Identificador")
                         .IsRequired();
 
+                    b.Property<string>("Localidad");
+
+                    b.Property<string>("Municipio");
+
+                    b.Property<string>("NumExt");
+
                     b.Property<string>("NumIdRegTrib");
+
+                    b.Property<string>("NumInt");
 
                     b.Property<string>("RFC")
                         .IsRequired();
+
+                    b.Property<string>("Referencia");
 
                     b.HasKey("IdReceptor");
 

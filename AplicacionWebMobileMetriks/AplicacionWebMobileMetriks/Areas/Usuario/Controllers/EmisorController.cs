@@ -50,24 +50,6 @@ namespace AplicacionWebMobileMetriks.Areas.Usuario.Controllers
             ViewBag.listofitemsRegimen = modelo.ListaRegimen;
             return View(modelo);
         }
-        //Get-Crear Receptor
-        public async Task<IActionResult> CrearReceptor()
-        {
-            ReceptorVistaModelo modelo = new ReceptorVistaModelo()
-            {
-                Receptores = new Receptores(),
-                ListaFormaPago = await _dbCatalogos.FormaPago.ToListAsync(),
-                ListaMoneda = await _dbCatalogos.Moneda.OrderBy(x=>x.Descripcion).ToListAsync(),
-                ListaPais = await _dbCatalogos.Pais.ToListAsync(),
-                ListaUsoCfdi = await _dbCatalogos.UsoCfdi.ToListAsync()
-            };
-            ViewBag.listofitemsMoneda = modelo.ListaMoneda;
-            ViewBag.listofitemsFormaPago = modelo.ListaFormaPago;
-            ViewBag.listofitemsPais = modelo.ListaPais;
-            ViewBag.listofitemsUsoCfdi = modelo.ListaUsoCfdi;
-            return View(modelo);
-        }
-
         //Post-Crear emisor
         [HttpPost, ActionName("Crear")]
         [ValidateAntiForgeryToken]

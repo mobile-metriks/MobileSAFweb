@@ -12,26 +12,17 @@ namespace AplicacionWebMobileMetriks.Models
         public Guid Id { get; set; }
         [Required]
         public string RFC { get; set; }
-        [Required]
         [Display(Name ="Nombre/Razón Social")]
+        [Required]
         public string Nombre { get; set; }
-        [Required]
         public string Curp { get; set; }
-        [Required]
         public string Calle { get; set; }
-        [Display(Name ="Numero de Exterior")]
-        [Required]
-        public int NumExterior { get; set; }
-        [Display(Name = "Numero de Interior")]
-        [Required]
-        public int NumInterior { get; set; }
-        [Required]
+        public int NumExterior { get; set; }    
+        public int NumInterior { get; set; }       
         public string Colonia { get; set; }
         public string Localidad { get; set; }
         public string Referencia { get; set; }
-        [Required]
         public string Municipio { get; set; }
-        [Required]
         public string Estado { get; set; }
         [Required]
         public string Pais { get; set; }
