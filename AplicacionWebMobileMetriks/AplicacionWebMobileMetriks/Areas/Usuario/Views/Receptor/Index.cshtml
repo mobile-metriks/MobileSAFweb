@@ -36,7 +36,7 @@
                                   <div class="btn-group" role="group">
                                       <a asp-action="Editar" asp-route-Id="@item.IdReceptor" title="Editar" class="btn btn-primary text-white"><i class="fas fa-edit"></i></a>
                                       <a asp-action="Detalles" asp-route-Id="@item.IdReceptor" title="Detalles" class="btn btn-success text-white"><i class="fas fa-clipboard-list"></i></a>
-                                      <a asp-action="Contacto" asp-route-Id="@item.IdReceptor" title="Contacto" class="btn btn-dark text-white"><i class="fas fa-address-book"></i></a>
+                                      <a asp-area="Usuario" asp-controller="Contacto" asp-action="Index" asp-route-Id="@item.IdReceptor" title="Contacto" class="btn btn-dark text-white"><i class="fas fa-address-book"></i></a>
                                   </div>
                               </td>
 

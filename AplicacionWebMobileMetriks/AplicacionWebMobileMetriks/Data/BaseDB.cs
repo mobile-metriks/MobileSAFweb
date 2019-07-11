@@ -17,5 +17,6 @@ namespace AplicacionWebMobileMetriks.Data
         public DbSet<Emisor> emisor { get; set; }
         public DbSet <RegimenEmisor> RegimenEmisores { get; set; }
         public DbSet<Receptores> Receptores { get; set; }
+        public DbSet<Contacto> Contactos { get; set; }
     }
 }

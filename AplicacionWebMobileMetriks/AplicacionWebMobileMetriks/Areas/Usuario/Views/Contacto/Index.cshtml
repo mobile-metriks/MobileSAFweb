@@ -1,0 +1,51 @@
+﻿@model AplicacionWebMobileMetriks.Models.ViewModels.ContactoVistaModelo
+@{
+    ViewData["Title"] = "Index";
+}
+
+<br /><br />
+<div class="border fondoBlanco">
+    <div class="row">
+        <div class="col-4">
+            <h2 class="text-info">Lista de contactos</h2>
+        </div>
+        <div class="col-4 text-right">
+            <a asp-action="Crear" asp-route-id="@Model.Receptores.IdReceptor" class="btn btn-info form-control"><i class="fa fa-plus"></i> &nbsp;Crear</a>
+        </div>
+        <div class="col-4 text-right">
+            <a asp-area="Usuario" asp-controller="Receptor" asp-action="Index" class="btn btn-success form-control">Regresar a la lista</a>
+        </div>
+    </div>
+    <br />
+    @if (Model.ContactoLista.Count() > 0)
+    {
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th>@Html.DisplayNameFor(x=>x.Contacto.Nombre)</th>
+                <th>@Html.DisplayNameFor(x=>x.Contacto.Telefono)</th>
+
+
+                <th></th>
+            </tr>
+            @foreach (var item in Model.ContactoLista)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(m => item.Nombre)</td>
+                    <td>@Html.DisplayFor(m => item.Telefono)</td>
+                    <td style="width:150px">
+                        <div class="btn-group" role="group">
+                            <a asp-action="Editar" asp-route-Id="@item.Id" title="Editar" class="btn btn-primary text-white"><i class="fas fa-edit"></i></a>
+                            <a asp-action="Detalles" asp-route-Id="@item.Id" title="Detalles" class="btn btn-success text-white"><i class="fas fa-clipboard-list"></i></a>
+                        </div>
+                    </td>
+
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>Aun no existen contactos</p>
+    }
+
+</div>

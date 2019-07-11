@@ -168,6 +168,11 @@ namespace AplicacionWebMobileMetriks.Areas.Usuario.Controllers
             ViewBag.listofitemsUsoCfdi = modelo.ListaUsoCfdi;
             return View(modelo);
         }
+        //public async Task<List<ReceptorVistaModelo>>  DetallesAjax(int id)
+        //{
+        //    List<ReceptorVistaModelo> modelo = new List<ReceptorVistaModelo>();        
+        //    return modelo.Where(x=>x.Receptores.IdReceptor==id).ToList();
+        //}
 
     }
 }
